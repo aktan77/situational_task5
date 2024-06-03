@@ -73,11 +73,11 @@ services:
         networks:
             - app_network
             - ./certbot/www/:/var/www/certbot/:ro
-        certbot:
-            image: certbot/certbot:latest
-            volumes:
-            - ./certbot/www/:/var/www/certbot/:rw
-            - ./certbot/conf/:/etc/letsencrypt/:rw
+    certbot:
+        image: certbot/certbot:latest
+        volumes:
+        - ./certbot/www/:/var/www/certbot/:rw
+        - ./certbot/conf/:/etc/letsencrypt/:rw
 
 networks:
     app_network:
