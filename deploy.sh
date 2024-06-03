@@ -44,8 +44,12 @@ http {
         listen 80;
         server_name 19d73b6fe42c.mylabserver.com;
 
-        location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
+        location / {
+        proxy_pass http://19d73b6fe42c.mylabserver.com:3000;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
     }
     }
 }
@@ -72,12 +76,12 @@ services:
             - web
         networks:
             - app_network
-            - ./certbot/www/:/var/www/certbot/:ro
-    certbot:
-        image: certbot/certbot:latest
-        volumes:
-            - ./certbot/www/:/var/www/certbot/:rw
-            - ./certbot/conf/:/etc/letsencrypt/:rw
+    #         - ./certbot/www/:/var/www/certbot/:ro
+    # certbot:
+    #     image: certbot/certbot:latest
+    #     volumes:
+    #         - ./certbot/www/:/var/www/certbot/:rw
+    #         - ./certbot/conf/:/etc/letsencrypt/:rw
 
 networks:
     app_network:
