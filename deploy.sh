@@ -76,8 +76,8 @@ services:
     certbot:
         image: certbot/certbot:latest
         volumes:
-        - ./certbot/www/:/var/www/certbot/:rw
-        - ./certbot/conf/:/etc/letsencrypt/:rw
+            - ./certbot/www/:/var/www/certbot/:rw
+            - ./certbot/conf/:/etc/letsencrypt/:rw
 
 networks:
     app_network:
